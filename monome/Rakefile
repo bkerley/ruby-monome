@@ -1,0 +1,16 @@
+require 'rake'
+require 'rake/testtask'
+require 'rcov/rcovtask'
+
+task :default => :test
+
+TEST_FILES = FileList['test/*_test.rb'] 
+
+Rake::TestTask.new do |task|
+  task.verbose    = true
+  task.test_files = TEST_FILES
+end
+
+Rcov::RcovTask.new do |task|
+  task.test_files = TEST_FILES
+end
