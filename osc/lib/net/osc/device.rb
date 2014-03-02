@@ -14,14 +14,16 @@ module Net
           @osc_method_arguments ||= {}
         end
     
-        def osc_method(name, &block)
+        def osc_method(name, endpoint=nil, &block)
           name = name.to_sym
           args = osc_method_arguments[name] = Arguments.new(&block)
       
+          endpoint ||= name.to_s.gsub('_', '/')
+
           class_eval <<-EOS, __FILE__, __LINE__
             def #{name}(*args)
               args = self.class.osc_method_arguments[#{name.inspect}].bind(args)
-              send_osc_message(#{name.inspect}, *args)
+              send_osc_message(#{endpoint.inspect}, *args)
             end
           EOS
         end
