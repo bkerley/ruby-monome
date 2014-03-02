@@ -5,9 +5,13 @@ module Monome
       def columns; 8 end
     end
 
-    osc_method(:led) do |arg|
+    osc_method(:led, 'led/set') do |arg|
       arg.integer :row
       arg.integer :column
+      arg.integer :state
+    end
+
+    osc_method(:led_all) do |arg|
       arg.integer :state
     end
 
@@ -21,7 +25,7 @@ module Monome
       arg.integer :state
     end
 
-    osc_method(:intensity) do |arg|
+    osc_method(:intensity, 'led/intensity') do |arg|
       arg.float :intensity
     end
 
