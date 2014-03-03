@@ -7,7 +7,7 @@ class String
   
   def self.read_osc_argument(arguments)
     string = arguments[index = 0, 4]
-    string << arguments[index += 4, 4] while string[-1] != 0
+    string << arguments[index += 4, 4] while string[-1] != "\0"
     [string.gsub!(/\0+$/, ""), index + 4]
   end
   
