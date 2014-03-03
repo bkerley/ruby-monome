@@ -46,6 +46,11 @@ module Net
         end
       end
   
+      def bare_send(name, *args)
+        message = Message.new(name, args)
+        send_osc_packet(message)
+      end
+
       protected
         def establish_connection!
           @socket = UDPSocket.new
@@ -61,8 +66,7 @@ module Net
         end
       
         def send_osc_message(name, *args)
-          message = Message.new(method_address(name), args)
-          send_osc_packet(message)
+          bare_send method_address(name), *args
         end
       
         def method_address(name)
