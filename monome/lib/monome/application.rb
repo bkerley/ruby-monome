@@ -7,6 +7,8 @@ module Monome
     end
   
     on :initialize do
+      device.bare_send '/sys/host', '10.0.38.6'
+      device.bare_send '/sys/port', 8000
       @grid = Grid.new(device)
       device.clear
     end
